@@ -2,24 +2,26 @@ import time
 
 from selenium import webdriver
 
+from selenium.webdriver.common.by import By
+
 
 class BotInstagram():
 
     def __init__(self):
         self.drive = webdriver.Chrome(executable_path="chromedriver.exe")
 
-    def entrar_link(self, link):
+    def entrar_link(self,link):
         self.drive.get(link)
 
     def pegar_link_das_fotos(self):
-        os_links = self.drive.find_elements_by_tag_name('_aa_c')
+        os_links = self.drive.find_elements(By.CSS_SELECTOR, 'article img')
         
         todos_os_links = []
         for os_link in os_links:
-            href = os_link.get_attribute("href")
-            print(href)
+            src = os_link.get_attribute("src")
+            print(src)
             # if
-            todos_os_links.append(href)
+            todos_os_links.append(src)
 
     def dar_like(self):
         pass
@@ -29,7 +31,7 @@ class BotInstagram():
 
 bot = BotInstagram()
 bot.entrar_link("https://www.instagram.com/")
-time.sleep(15)
+time.sleep(20)
 bot.entrar_link("https://www.instagram.com/_babioliveiraaa/")
 time.sleep(2)
 bot.pegar_link_das_fotos()
